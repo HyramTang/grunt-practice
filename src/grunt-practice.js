@@ -8,6 +8,7 @@ var app = (function (p) {
         sayHello: function () {
             alert('Hello,' + p.name + '!');
             alert('You are ' + p.age);
+            console.info('hello');
         }
     }
 })(personal)
