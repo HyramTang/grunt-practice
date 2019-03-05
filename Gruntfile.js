@@ -32,6 +32,15 @@ module.exports = function (grunt) {
                     'build/sass.css': 'src/sass.scss'
                 }
             }
+        },
+        concat: {
+            options: {
+                separator: ';',
+            },
+            dist: {
+                src: ['./src/concat1.js', './src/concat2.js'],
+                dest: './build/global.js'
+            }
         }
     });
 
@@ -41,9 +50,12 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
     // Load sass
     grunt.loadNpmTasks('grunt-contrib-sass');
+    // Load concat
+    grunt.loadNpmTasks('grunt-contrib-concat');
 
     // Default task(s).
     // grunt.registerTask('default', ['uglify']);
     grunt.registerTask('outputcss', ['sass']);
     grunt.registerTask('lessc', ['less:development']);
+    grunt.registerTask('concatjs', ['concat']);
 }
