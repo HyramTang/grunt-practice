@@ -1,8 +1,8 @@
-(function (p) {
+var personObj = (function (p) {
     return {
         sayHello: function () {
-            console.log('Hello my name is ' + p.name)
-            console.log('I am '+p.age);
+            console.log('Hello my name is ' + p.name);
+            console.log('I am ' + p.age);
         }
-    }
-})(person)
+    };
+})(person);

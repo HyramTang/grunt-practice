@@ -10,6 +10,11 @@ module.exports = function (grunt) {
             build: {
                 src: 'src/<%= pkg.name %>.js',
                 dest: 'build/<%= pkg.name %>.min.js'
+            },
+            compressjs: {
+                files: {
+                    './build/global.min.js': ['./build/global.js']
+                }
             }
         },
         less: {
@@ -35,12 +40,15 @@ module.exports = function (grunt) {
         },
         concat: {
             options: {
-                separator: ';',
+                // separator: ';',
             },
             dist: {
                 src: ['./src/concat1.js', './src/concat2.js'],
                 dest: './build/global.js'
             }
+        },
+        jshint: {
+            all: ['./build/global.js']
         }
     });
 
@@ -52,10 +60,13 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-sass');
     // Load concat
     grunt.loadNpmTasks('grunt-contrib-concat');
+    // Load jshint
+    grunt.loadNpmTasks('grunt-contrib-jshint');
 
     // Default task(s).
     // grunt.registerTask('default', ['uglify']);
     grunt.registerTask('outputcss', ['sass']);
     grunt.registerTask('lessc', ['less:development']);
     grunt.registerTask('concatjs', ['concat']);
+    grunt.registerTask('conpressjs', ['concat', 'jshint', 'uglify:compressjs']);
 }
