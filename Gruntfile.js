@@ -49,6 +49,41 @@ module.exports = function (grunt) {
         },
         jshint: {
             all: ['./build/global.js']
+        },
+        watch: {
+            scripts: {
+                files: ['./src/concat1.js', './src/concat2.js'],
+                tasks: ['concat', 'jshint', 'uglify']
+            },
+            less: {
+                files: './src/**/*.less',
+                tasks: ['less']
+            },
+            livereload: {
+                options: {
+                    livereload: '<%= connect.options.livereload %>'
+                },
+                files: [
+                    'index.html',
+                    'build/less.css',
+                    'build/global.min.js'
+                ]
+            }
+        },
+        connect: {
+            options: {
+                port: 9000,
+                open: true,
+                livereload: 35729,
+                // Change this to '0.0.0.0' to access the server from outside
+                hostname: 'localhost'
+            },
+            server: {
+                options: {
+                    port: 9001,
+                    base: './'
+                }
+            }
         }
     });
 
@@ -62,6 +97,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     // Load jshint
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-connect');
 
     // Default task(s).
     // grunt.registerTask('default', ['uglify']);
@@ -69,4 +106,5 @@ module.exports = function (grunt) {
     grunt.registerTask('lessc', ['less:development']);
     grunt.registerTask('concatjs', ['concat']);
     grunt.registerTask('conpressjs', ['concat', 'jshint', 'uglify:compressjs']);
+    grunt.registerTask('watchit', ['less', 'concat', 'jshint', 'uglify', 'connect', 'watch']);
 }
